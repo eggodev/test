@@ -1,6 +1,8 @@
-import { QualityContext } from "./Quality.context";
-import { IncreaseQuality } from "./Increase-Quality.strategy";
-import { DegradeQuality } from "./Degrade-Quality.strategy";
+import QualityContext  from "./Quality.context";
+import NormalItemQuality from "./Normal-Item-Quality.strategy";
+import ConjuredItemQuality from "./Conjured-Item-Quality.strategy";
+import BrieItemQuality from "./Brie-Item-Quality.strategy";
+import PassItemQuality from "./Pass-Item-Quality.strategy";
 
 export class Item {
     name: string;
@@ -21,35 +23,25 @@ export class GildedRose {
         this.items = items;
     }
 
-    speedCalc(sellIn){
-        let speed = 1;
-        if (sellIn < 6) {
-            speed = 3;                 
-        } else if (sellIn < 11) {
-            speed = 2;
-        }
-        return speed;
-    }
-
     updateQuality() {
         const qualityContext = new QualityContext();
         for (let i = 0; i < this.items.length; i++) {
             this.items[i].sellIn -= 1;
             switch (this.items[i].name) {
                 case 'Aged Brie':
-                    qualityContext.setStrategy(new IncreaseQuality(this.items[i].sellIn,this.items[i].quality,this.speedCalc(this.items[i].sellIn)));
+                    qualityContext.setStrategy(new BrieItemQuality());        
                     break;
                 case 'Backstage passes to a TAFKAL80ETC concert':
-                    qualityContext.setStrategy(new IncreaseQuality(this.items[i].sellIn,this.items[i].quality,this.speedCalc(this.items[i].sellIn)));
+                    qualityContext.setStrategy(new PassItemQuality()); 
                     break;
                 case 'Conjured':
-                    qualityContext.setStrategy(new DegradeQuality(this.items[i].sellIn,this.items[i].quality,2));
+                    qualityContext.setStrategy(new ConjuredItemQuality());
                     break;
                 default:
-                    qualityContext.setStrategy(new DegradeQuality(this.items[i].sellIn,this.items[i].quality,1));
+                    qualityContext.setStrategy(new NormalItemQuality());
                     break;
             }
-            this.items[i].quality = qualityContext.executeStrategy();
+            this.items[i].quality = qualityContext.executeStrategy(this.items[i].sellIn, this.items[i].quality);
         }
 
         return this.items;

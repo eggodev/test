@@ -1,13 +1,14 @@
-import { UpdateQuality } from "./Update-Quality.interface";
+import UpdateQuality from "./Update-Quality.interface";
 
-export class QualityContext {
+export default class QualityContext {
+    
     private updateQuality!: UpdateQuality;
 
     setStrategy(qualityStrategy: UpdateQuality) {
         this.updateQuality = qualityStrategy;
     }
     
-    executeStrategy(): number {        
-        return this.updateQuality.calculate();
+    executeStrategy(sellIn: number, quality: number): number {        
+        return this.updateQuality.calculateQuality(sellIn,quality);
     }
 }
