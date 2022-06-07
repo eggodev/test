@@ -1,11 +1,5 @@
-# Let's start to make money
-
-## How you'll be assessed
-
-- We love good code. Easy to read and with the best practices.
-- We want self-documenting code.
-- Efficiency in execution time and memory usage.
-- Easy to be tested.
+Esta es una refactorización de código que realice al postular por el puesto de Backend Developer para Instacash.
+No quedé pero aprendí mucho en el proceso.
 
 ## Games
 
