@@ -1,5 +1,5 @@
 Esta es una refactorización de código que realice al postular por el puesto de Backend Developer para Instacash.
-No quedé pero aprendí mucho en el proceso.
+No quedé pero aprendí mucho en el proceso sobre patrones de diseño.
 
 ## Games
 
